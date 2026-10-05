@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ishita Dhopeshwar</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+  /* COLORS: change these 4 lines to recolor the whole site */
+  :root { --bg:#fcfbf9; --text:#1f1d22; --muted:#6e6873; --accent:#7a4e9a; --line:#e7e3ea; }
+
+  body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system, "Helvetica Neue", Arial, sans-serif; font-size:17px; line-height:1.7; }
+  .page { max-width:880px; margin:0 auto; padding:56px 24px 40px; }
+  h1, h2 { font-family:Georgia, "Times New Roman", serif; font-weight:normal; }
+  h1 { font-size:44px; margin:0 0 6px; line-height:1.15; }
+  h2 { font-size:24px; margin:0 0 12px; }
+  a { color:var(--accent); text-decoration:none; border-bottom:1px solid transparent; }
+  a:hover { border-bottom-color:var(--accent); }
+  .muted { color:var(--muted); }
+  section { padding:36px 0; border-top:1px solid var(--line); }
+
+  /* TOP PART: photos fill the whole screen, your intro sits on top of them */
+  .hero { position:relative; height:100vh; min-height:560px; overflow:hidden; color:#fff; }
+  .hero img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 30%; opacity:0; transition:opacity 1.5s; }
+  .hero img.show { opacity:1; }
+  /* A dark fade at the bottom so white words are easy to read on any photo */
+  .hero::after { content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.05) 75%); }
+  .hero-text { position:absolute; z-index:1; left:0; right:0; bottom:0; max-width:880px; margin:0 auto; padding:0 24px 64px; box-sizing:border-box; }
+  .hero h1 { font-size:56px; }
+  .hero p { max-width:620px; text-shadow:0 1px 3px rgba(0,0,0,0.4); }
+  .role { color:rgba(255,255,255,0.8); margin:0 0 18px; }
+
+  /* The changing "Lately thinking about" line */
+  .thinking { font-size:15px; color:rgba(255,255,255,0.8); margin-top:22px; }
+  #thought { color:#fff; font-style:italic; transition:opacity 0.6s; }
+
+  /* Simple text links in a row */
+  .links { display:flex; flex-wrap:wrap; gap:10px 26px; margin:0; padding:0; list-style:none; }
+  .links i { margin-right:6px; }
+  ul.plain { margin:0; padding-left:20px; }
+  ul.plain li { margin-bottom:6px; }
+
+  /* GAME */
+  .game-bar { display:flex; flex-wrap:wrap; align-items:center; gap:8px 24px; margin-bottom:12px; font-size:15px; color:var(--muted); }
+  .game-bar b { color:var(--text); }
+  button { font:inherit; font-size:15px; padding:8px 18px; border:1px solid var(--text); background:transparent; color:var(--text); border-radius:4px; cursor:pointer; }
+  button:hover { background:var(--text); color:var(--bg); }
+  button:disabled { opacity:0.4; cursor:default; background:transparent; color:var(--text); }
+  #startBtn { margin-left:auto; }
+  #arena { position:relative; height:220px; border:1px dashed var(--line); border-radius:6px; overflow:hidden; touch-action:manipulation; }
+  #msg { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:0 16px; color:var(--muted); }
+  .target { position:absolute; font-size:34px; cursor:pointer; user-select:none; animation:pop 1s ease-out forwards; }
+  @keyframes pop { 0%{transform:scale(0);} 20%{transform:scale(1.15);} 30%{transform:scale(1);} 100%{opacity:0.2;} }
+  #saveBox { display:none; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  #playerName { flex:1; min-width:160px; padding:8px 12px; border:1px solid var(--line); border-radius:4px; font:inherit; font-size:15px; background:#fff; }
+  #board { margin-top:16px; font-size:15px; }
+  #board h3 { margin:0 0 6px; font-size:15px; font-weight:600; }
+  #scoreList { margin:0; padding-left:22px; }
+  #noScores { margin:0; color:var(--muted); }
+
+  footer { padding-top:28px; border-top:1px solid var(--line); font-size:14px; color:var(--muted); }
+
+  /* PHONES: stack everything in one column */
+  @media (max-width:700px) {
+    .hero h1 { font-size:38px; }
+    .hero-text { padding-bottom:40px; }
+    .hero p { font-size:15px; }
+  }
+</style>
+</head>
+<body>
+<div class="hero" id="slides">
+  <img class="show" src="photos/golden-gate.jpg" alt="Golden Gate Bridge">
+  <img src="photos/photo1.jpg" alt="Photo of Ishita">
+  <img src="photos/photo2.jpg" alt="Photo of Ishita">
+  <img src="photos/photo3.jpg" alt="Photo of Ishita">
+  <img src="photos/photo4.jpg" alt="Photo of Ishita">
+  <img src="photos/photo5.jpg" alt="Photo of Ishita">
+  <img src="photos/photo6.jpg" alt="Photo of Ishita">
+  <img src="photos/photo7.jpg" alt="Photo of Ishita">
+  <img src="photos/photo8.jpg" alt="Photo of Ishita">
+  <img src="photos/photo9.jpg" alt="Photo of Ishita">
+  <div class="hero-text">
+    <h1>Hi, I'm Ishita</h1>
+    <p class="role">RF Researcher · Tarana Wireless · Bay Area</p>
+    <p>I'm a wireless engineer working on fixed wireless access systems: RF, network entry, spectrum, and field performance. Before this, I invented a printable RFID tag antenna with 2x the read range of commercial tags, now patented in the US and France, with a patent pending in China.</p>
+    <p class="thinking">Lately thinking about: <span id="thought">who gets to build technology</span></p>
+  </div>
+</div>
+
+<div class="page">
+
+  <section>
+    <h2>Find me</h2>
+    <ul class="links">
+      <li><a href="https://www.linkedin.com/in/ishita-dhopeshwar-65063b190" target="_blank"><i class="fa-brands fa-linkedin"></i>LinkedIn</a></li>
+      <li><a href="https://www.instagram.com/ishiittaaa/" target="_blank"><i class="fa-brands fa-instagram"></i>Instagram</a></li>
+      <li><a href="https://scholar.google.com/citations?user=_UKdFPAAAAAJ&amp;hl=en" target="_blank"><i class="fa-solid fa-graduation-cap"></i>Google Scholar</a></li>
+      <li><a href="https://patents.google.com/patent/US12073277B2/en" target="_blank"><i class="fa-solid fa-lightbulb"></i>My patent</a></li>
+      <li><a href="resume.pdf" target="_blank"><i class="fa-regular fa-file"></i>Resume</a> <span class="muted">(<a href="resume.pdf" download>download</a>)</span></li>
+      <li><a href="mailto:dhopeshwar.ishita@gmail.com"><i class="fa-regular fa-envelope"></i>Email</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Talk with me</h2>
+    <p>Want to chat about wireless, RF, research, careers in engineering, or imposter syndrome? <a href="mailto:dhopeshwar.ishita@gmail.com?subject=1%3A1%20Request&amp;body=Hi%20Ishita%2C%0A%0AI'd%20like%20to%20schedule%20a%201%3A1%20with%20you.%0A%0AMy%20name%3A%20%0AWhat%20I'd%20like%20to%20talk%20about%3A%20%0AA%20few%20times%20that%20work%20for%20me%20(with%20time%20zone)%3A%20%0A%0AThank%20you!">Request a 1:1</a> with a few times that work for you, and I'll send a calendar invite.</p>
+    <p>I also love meeting new people for <a href="mailto:dhopeshwar.ishita@gmail.com?subject=Coffee%20Chat%20Request&amp;body=Hi%20Ishita%2C%0A%0AI'd%20love%20to%20grab%20coffee%20with%20you!%0A%0AMy%20name%3A%20%0AA%20little%20about%20me%3A%20%0ADays%2Ftimes%20that%20work%20for%20me%3A%20%0AIn%20person%20or%20virtual%3A%20%0A%0AThank%20you!">coffee</a> or an <a href="mailto:dhopeshwar.ishita@gmail.com?subject=Fun%20Adventure%20Request&amp;body=Hi%20Ishita%2C%0A%0AWant%20to%20go%20on%20an%20adventure%3F%0A%0AMy%20name%3A%20%0AWhat%20I'm%20thinking%20(skiing%2C%20aerial%20yoga%2C%20gym%2C%20fitness%20class%2C%20via%20ferrata%2C%20ropes%20course%2C%20hike%2C%20etc.)%3A%20%0ADays%2Ftimes%20that%20work%20for%20me%3A%20%0A%0ASee%20you%20soon!">adventure</a> around the Bay Area: skiing, aerial yoga, the gym, fitness classes, via ferrata, ropes courses, hiking, museums, or somewhere new.</p>
+    <p class="muted">Quick question? Message me on <a href="https://www.linkedin.com/in/ishita-dhopeshwar-65063b190" target="_blank">LinkedIn</a> or <a href="https://ig.me/m/ishiittaaa" target="_blank">Instagram</a>.</p>
+  </section>
+
+  <section>
+    <h2>Community</h2>
+    <ul class="plain">
+      <li><b>Grace Hopper Celebration</b>: Scholar (2021) and Mentor (2022)</li>
+      <li><b>GradSWE, University at Buffalo</b>: Speaker and Secretary</li>
+      <li><b>NSF Young Gladiators</b>: Scholarship for hands-on work on Colosseum, the world's largest RF emulator (2022)</li>
+      <li><b>IEEE Conferences</b>: Peer reviewer for wireless communications papers</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Catch the signal</h2>
+    <p class="muted">Tap the signals before they fade. You have 20 seconds.</p>
+    <div class="game-bar">
+      <span>Score <b id="score">0</b></span>
+      <span>Time <b id="time">20</b></span>
+      <span>Your best <b id="best">0</b></span>
+      <button id="startBtn">Start</button>
+    </div>
+    <div id="arena"><div id="msg">Press Start to play</div></div>
+    <div id="saveBox">
+      <input id="playerName" type="text" maxlength="20" placeholder="Type your name">
+      <button id="saveBtn">Save my score</button>
+    </div>
+    <div id="board">
+      <h3>Saved scores</h3>
+      <ol id="scoreList"></ol>
+      <p id="noScores">No saved scores yet.</p>
+    </div>
+  </section>
+
+  <footer>© Ishita Dhopeshwar</footer>
+
+<script src="photo-positions.js"></script>
+<script>
+  // ---- PHOTO POSITIONS: show the part of each photo you picked in adjust-photos.html ----
+  document.querySelectorAll("#slides img").forEach(function (img) {
+    var name = img.getAttribute("src").split("/").pop();          // e.g. "photo3.jpg"
+    var s = (window.photoPositions && photoPositions[name]);
+    if (!s) return;                                                // no setting? leave it as is
+    img.style.objectPosition = s.x + "% " + s.y + "%";
+    img.style.transformOrigin = s.x + "% " + s.y + "%";
+    img.style.transform = "scale(" + (s.zoom / 100) + ")";
+  });
+
+  // ---- SLIDESHOW: every 5 seconds, hide the current photo and show the next one ----
+  var photos = document.querySelectorAll("#slides img");
+  var current = 0;
+  setInterval(function () {
+    photos[current].classList.remove("show");
+    current = (current + 1) % photos.length;   // after the last photo, go back to the first
+    photos[current].classList.add("show");
+  }, 5000);
+
+  // ---- "LATELY THINKING ABOUT" LINE: fades to a new phrase every 3.5 seconds ----
+  // To change the phrases, just edit the words inside the quotes below.
+  var thoughts = [
+    "who gets to build technology",
+    "cleaner skies",
+    "machines that learn",
+    "what's past our sky",
+    "internet for places that don't have it yet"
+  ];
+  var t = 0, thoughtEl = document.getElementById("thought");
+  setInterval(function () {
+    thoughtEl.style.opacity = 0;                 // fade out
+    setTimeout(function () {
+      t = (t + 1) % thoughts.length;
+      thoughtEl.textContent = thoughts[t];
+      thoughtEl.style.opacity = 1;               // fade back in with the new phrase
+    }, 600);
+  }, 3500);
+
+  // ---- GAME (same as before, just restyled) ----
+  var arena = document.getElementById("arena");
+  var msg = document.getElementById("msg");
+  var scoreEl = document.getElementById("score");
+  var timeEl = document.getElementById("time");
+  var bestEl = document.getElementById("best");
+  var startBtn = document.getElementById("startBtn");
+  var saveBox = document.getElementById("saveBox");
+  var saveBtn = document.getElementById("saveBtn");
+  var nameInput = document.getElementById("playerName");
+  var scoreList = document.getElementById("scoreList");
+  var noScores = document.getElementById("noScores");
+
+  var best = Number(localStorage.getItem("signalBest") || 0);
+  bestEl.textContent = best;
+  var score = 0, timeLeft = 20, spawner = null, clock = null;
+  var icons = ["📡", "📶"];
+
+  function spawn() {
+    var s = document.createElement("div");
+    s.className = "target";
+    s.textContent = icons[Math.floor(Math.random() * icons.length)];
+    s.style.left = Math.random() * (arena.clientWidth - 50) + "px";
+    s.style.top = Math.random() * (arena.clientHeight - 50) + "px";
+    s.onpointerdown = function () { score++; scoreEl.textContent = score; s.remove(); };
+    arena.appendChild(s);
+    setTimeout(function () { s.remove(); }, 1000);
+  }
+
+  startBtn.onclick = function () {
+    score = 0; timeLeft = 20;
+    scoreEl.textContent = 0; timeEl.textContent = 20;
+    msg.style.display = "none";
+    saveBox.style.display = "none";
+    startBtn.disabled = true;
+    spawner = setInterval(spawn, 650);
+    clock = setInterval(function () {
+      timeLeft--;
+      timeEl.textContent = timeLeft;
+      if (timeLeft <= 0) endGame();
+    }, 1000);
+  };
+
+  function endGame() {
+    clearInterval(spawner); clearInterval(clock);
+    arena.querySelectorAll(".target").forEach(function (s) { s.remove(); });
+    var text = "You caught " + score + " signals.";
+    if (score > best) {
+      best = score;
+      localStorage.setItem("signalBest", best);
+      bestEl.textContent = best;
+      text += " New best!";
+    }
+    msg.textContent = text;
+    msg.style.display = "flex";
+    startBtn.disabled = false;
+    startBtn.textContent = "Play again";
+    saveBox.style.display = "flex";
+    saveBtn.disabled = false;
+    saveBtn.textContent = "Save my score";
+  }
+
+  function showBoard() {
+    var saved = JSON.parse(localStorage.getItem("signalScores") || "[]");
+    saved.sort(function (a, b) { return b.score - a.score; });
+    scoreList.innerHTML = "";
+    saved.slice(0, 5).forEach(function (s) {
+      var li = document.createElement("li");
+      li.textContent = s.name + ": " + s.score + " (" + s.date + ")";
+      scoreList.appendChild(li);
+    });
+    noScores.style.display = saved.length ? "none" : "block";
+  }
+
+  saveBtn.onclick = function () {
+    var name = nameInput.value.trim();
+    if (!name) { nameInput.focus(); nameInput.placeholder = "Please type a name first"; return; }
+    var saved = JSON.parse(localStorage.getItem("signalScores") || "[]");
+    saved.push({ name: name, score: score, date: new Date().toLocaleDateString() });
+    localStorage.setItem("signalScores", JSON.stringify(saved));
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Saved";
+    showBoard();
+  };
+
+  showBoard();
+</script>
+</div>
+</body>
+</html>
